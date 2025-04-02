@@ -1,11 +1,9 @@
-from django.contrib import admin
 from django.urls import path
-
-from configapp.views import *
+from .views import movie_list_create, movie_detail
 
 urlpatterns = [
-    path('movie_list_create/', movie_list_create),
-    path('movie_detail/<slug:slug>/', movie_detail),
-
-
+    path("movies/", movie_list_create, name="movie-list-create"),
+    path("movies/<slug:slug>/", movie_detail, name="movie-detail"),
 ]
+
+
