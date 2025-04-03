@@ -7,7 +7,7 @@ from configapp.models import Movie, Actors
 #     class Meta:
 #         model = Movie
 #         fields = '__all__'
-
+# #
 
 class MovieSerializers (serializers.Serializer):
         id = serializers.IntegerField(read_only=True)
@@ -34,3 +34,19 @@ class MovieSerializers (serializers.Serializer):
 
             instance.save()
             return instance
+
+class ActorSerializers (serializers.Serializer):
+    id = serializers.IntegerField(read_only=True)
+    birth_date = serializers.DateField()
+    name = serializers.CharField(max_length=100)
+
+
+    def create(self,validated_data):
+        actors = Actors.objects.create(**validated_data)
+        return actors
+
+    def update(self, instance, validated_data):
+        instance.name = validated_data.get('name',instance.name)
+        instance.birth_date = validated_data.get('birth_date',instance.birth_date)
+        instance.save()
+        return instance
