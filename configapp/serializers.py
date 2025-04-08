@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from configapp.models import Movie, Actors
+from configapp.models import Movie, Actors, CommitMovie
 
 
 # class MovieSerializers (serializers.ModelSerializer):
@@ -50,3 +50,15 @@ class ActorSerializers (serializers.Serializer):
         instance.birth_date = validated_data.get('birth_date',instance.birth_date)
         instance.save()
         return instance
+
+
+# class CommitSerializer(serializers.ModelSerializer):
+#     class Meta:
+#         model = CommitMovie
+#         fields = "__all__"
+
+class CommitSerializer(serializers.ModelSerializer):
+    author = serializers.ReadOnlyField(source='author.username')
+    class Meta:
+        model = CommitMovie
+        fields = '__all__'
